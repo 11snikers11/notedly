@@ -1,0 +1,12 @@
+POST http://localhost:4000/api
+Content-Type: application/json
+X-REQUEST-TYPE: GraphQL
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxMTUxMzAzMzI1MjI3Mzg0OGExZDU1OCIsImlhdCI6MTYyODc3NjU1OX0.2FDSpBGKs8QFc_3vmpgIio-p74X0cHA7ExD_k2QX6CI
+
+mutation Mutation {
+  signIn(
+    username: "Dima kosya"
+    email: "dk@mail.ru"
+    password: "Zorro12345"
+  )
+}
