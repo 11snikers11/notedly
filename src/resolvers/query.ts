@@ -1,7 +1,7 @@
 import { Context, User, Note, NoteFeed } from '../common/types';
 
 export default {
-  notes: async (parent: any, args: any, { models }: Context) => await models.Note.find(),
+  notes: async (parent: any, args: any, { models }: Context) => await models.Note.find().limit(100),
   note: async (parent: any, { _id }: Note, { models }: Context) => await models.Note.findById(_id),
   user: async (parent: any, { username }: User, { models }: Context) => await models.User.findOne({ username }),
   users: async (parent: any, args: any, { models }: Context) => await models.User.find(),

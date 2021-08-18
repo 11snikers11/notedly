@@ -1,15 +1,17 @@
+/// <reference path="./common/graphql-validation-complexity.d.ts"/>
+
 require('dotenv').config();
 
+import { ApolloServer } from 'apollo-server-express';
+import depthLimit from 'graphql-depth-limit';
+import { createComplexityLimitRule } from 'graphql-validation-complexity';
+import jwt from 'jsonwebtoken';
 import express from 'express';
 import helmet from 'helmet';
 import cors from 'cors';
-import { connectToDb } from './db';
-
-import { ApolloServer } from 'apollo-server-express';
-import { Application } from 'express';
-import jwt from 'jsonwebtoken';
 
 import resolvers from './resolvers';
+import { connectToDb } from './db';
 import typeDefs from './schema';
 import models from './model';
 
@@ -39,6 +41,7 @@ export async function startApollo() {
     const server = new ApolloServer({
       typeDefs,
       resolvers,
+      validationRules: [depthLimit(5), createComplexityLimitRule(1000)],
       context: ({ req }) => {
         const token = req.headers.authorization || '';
         const user = getUser(token);
